@@ -7,7 +7,7 @@
 #define PIN_BTN_2 A1
 
 #define PIN_PROXIMITY_LEFT A8
-#define PIN_PROXIMITY_BOTTOM A6
+#define PIN_PROXIMITY_BACK A6
 #define PIN_PROXIMITY_RIGHT A4
 
 #define PIN_SHARP_LEFT 7
@@ -58,9 +58,44 @@ void loop() {
   if (!digitalRead(PIN_BTN_2)) doRun = false;
 
   if (doRun) {
-    mirrorProxLed(PIN_PROXIMITY_LEFT, PIN_LED_A);
-    mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
-    mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
+    int motorState = 0;
+
+    if (isCloseToSensor(PIN_PROXIMITY_LEFT)) {
+      motState += 1;
+      digitalWrite(PIN_LED_A, HIGH);
+    } else digitalWrite(PIN_LED_A, LOW);
+
+    if (isCloseToSensor(PIN_PROXIMITY_RIGHT)) {
+      motState += 2;
+      digitalWrite(PIN_LED_B, HIGH);
+    } else digitalWrite(PIN_LED_B, LOW);
+
+    if (isCloseToSensor(PIN_PROXIMITY_BACK)) {
+      motState += 4;
+      digitalWrite(PIN_LED_C, HIGH);
+    } else digitalWrite(PIN_LED_C, LOW);
+
+    switch(motorState) {
+    case 0:
+      goLeft(100, 100);
+      break;
+    case 1:
+      goRight(100, 100);
+      delay(300);
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    case 5:
+      break;
+    case 6:
+      break;
+    case 7:
+      break;
+    }
 
     if (digitalRead(PIN_SHARP_CENTER)) {
       goForward(150, 150);
@@ -103,7 +138,7 @@ void goRight(int leftSpeed, int rightSpeed) {
   digitalWrite(10, LOW);
 }
 
-void mirrorProxLed(int sensorPin, int ledPin) {
-  digitalWrite(ledPin, analogRead(sensorPin) < 200 ? HIGH : LOW);
+boolean isCloseToSensor(int sensorPin) {
+  return analogRead(sensorPin) < 200;
 }
 
