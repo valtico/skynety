@@ -15,6 +15,10 @@
 #define PIN_PROXIMITY_BOTTOM A6
 #define PIN_PROXIMITY_RIGHT A4
 
+#define PIN_SHARP_1 7
+#define PIN_SHARP_2 A3
+#define PIN_SHARP_3 A5
+
 boolean doRun = false;
 
 void setup() {
@@ -22,9 +26,20 @@ void setup() {
   while (!Serial) ;
 
   pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_LED_A, OUTPUT);
+  pinMode(PIN_LED_B, OUTPUT);
+  pinMode(PIN_LED_C, OUTPUT);
 
   pinMode(PIN_BTN_1, INPUT_PULLUP);
   pinMode(PIN_BTN_2, INPUT_PULLUP);
+
+  pinMode(PIN_PROXIMITY_LEFT, INPUT);
+  pinMode(PIN_PROXIMITY_BOTTOM, INPUT);
+  pinMode(PIN_PROXIMITY_RIGHT, INPUT);
+
+  pinMode(PIN_SHARP_1, INPUT);
+  pinMode(PIN_SHARP_2, INPUT);
+  pinMode(PIN_SHARP_3, INPUT);
 }
 
 void loop() {
