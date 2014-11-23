@@ -58,68 +58,44 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
 
     if (!digitalRead(PIN_SHARP_CENTER)) {
-      startMovement(MODE_MOVE_GO_FORWARD);
+      goForward(150, 150);
     } else {
-      startMovement(MODE_MOVE_TURN_RIGHT);
-      delay(200);
+      goLeft(150, 150);
+      delay(500);
     }
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
-
-    startMovement(MODE_MOVE_NONE);
   }
 }
 
-void startMovement(int mode) {
-  startMovement(mode, 127);
+void goForward(int leftSpeed, int rightSpeed) {
+  analogWrite(5, leftSpeed);
+  digitalWrite(6, LOW);
+  analogWrite(10, rightSpeed);
+  digitalWrite(9, LOW);
 }
 
-void startMovement(int mode, int newPwm) {
-  switch (mode) {
-    case MODE_MOVE_GO_FORWARD:
-      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+void goBackwards(int leftSpeed, int rightSpeed) {
+  analogWrite(6, leftSpeed);
+  digitalWrite(5, LOW);
+  analogWrite(9, rightSpeed);
+  digitalWrite(10, LOW);
+}
 
-      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+void goLeft(int leftSpeed, int rightSpeed) {
+  analogWrite(6, leftSpeed);
+  digitalWrite(5, LOW);
+  analogWrite(10, rightSpeed);
+  digitalWrite(9, LOW);
+}
 
-      break;
-    case MODE_MOVE_GO_BACKWARD:
-      analogWrite(PIN_MOTOR_PWM_LEFT, 255 - newPwm);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
-
-      analogWrite(PIN_MOTOR_PWM_RIGHT, 255 - newPwm);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
-
-      break;
-    case MODE_MOVE_TURN_LEFT:
-      analogWrite(PIN_MOTOR_PWM_LEFT, 255 - newPwm);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
-
-      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
-
-      break;
-    case MODE_MOVE_TURN_RIGHT:
-      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
-
-      analogWrite(PIN_MOTOR_PWM_RIGHT, 255 - newPwm);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
-
-      break;
-    case MODE_MOVE_NONE:
-    default:
-      analogWrite(PIN_MOTOR_PWM_LEFT, 0);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
-
-      analogWrite(PIN_MOTOR_PWM_RIGHT, 0);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
-
-      break;
-  }
+void goRight(int leftSpeed, int rightSpeed) {
+  analogWrite(5, leftSpeed);
+  digitalWrite(6, LOW);
+  analogWrite(9, rightSpeed);
+  digitalWrite(10, LOW);
 }
 
 void mirrorProxLed(int sensorPin, int ledPin) {
