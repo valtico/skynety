@@ -31,6 +31,11 @@
 boolean doRun = false;
 
 void setup() {
+  /*
+  Serial.begin(9600);
+  while (!Serial) ;
+  Serial.println("hello world.");
+  */
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
@@ -60,17 +65,27 @@ void loop() {
   if (doRun) {
     int motorState = 0;
 
-    if (isCloseToSensor(PIN_PROXIMITY_LEFT)) {
+    /*
+    Serial.print(" PIN_PROXIMITY_LEFT=");
+    Serial.print(analogRead(PIN_PROXIMITY_LEFT));
+    Serial.print(" PIN_PROXIMITY_RIGHT=");
+    Serial.print(analogRead(PIN_PROXIMITY_RIGHT));
+    Serial.print(" PIN_PROXIMITY_BACK=");
+    Serial.print(analogRead(PIN_PROXIMITY_BACK));
+    Serial.println();
+    */
+
+    if (analogRead(PIN_PROXIMITY_LEFT) < 300) {
       motorState += 1;
       digitalWrite(PIN_LED_A, HIGH);
     } else digitalWrite(PIN_LED_A, LOW);
 
-    if (isCloseToSensor(PIN_PROXIMITY_RIGHT)) {
+    if (analogRead(PIN_PROXIMITY_RIGHT) < 100) {
       motorState += 2;
       digitalWrite(PIN_LED_B, HIGH);
     } else digitalWrite(PIN_LED_B, LOW);
 
-    if (isCloseToSensor(PIN_PROXIMITY_BACK)) {
+    if (analogRead(PIN_PROXIMITY_BACK) < 200) {
       motorState += 4;
       digitalWrite(PIN_LED_C, HIGH);
     } else digitalWrite(PIN_LED_C, LOW);
@@ -109,13 +124,13 @@ void loop() {
       delay(300);
       break;
     case 5:
-      goForward(255, 255);
+      goForward(250, 250);
       delay(200);
       goRight(200, 200);
       delay(100);
       break;
     case 6:
-      goForward(255, 255);
+      goForward(250, 250);
       delay(200);
       goLeft(200, 200);
       delay(100);
@@ -129,11 +144,11 @@ void loop() {
       delay(10);
       break;
     case 16: // sharp center
-      goForward(255, 255);
+      goForward(250, 250);
       delay(10);
       break;
     case 24: // sharp left + center
-      goForward(200, 255);
+      goForward(200, 250);
       delay(10);
       break;
     case 32: // sharp right
@@ -141,12 +156,12 @@ void loop() {
       delay(10);
       break;
     case 48: // sharp center + right
-      goForward(255, 200);
+      goForward(250, 200);
       delay(10);
       break;
     case 40: // sharp left + right
     case 56: // sharp left + center + right
-      goForward(255, 255);
+      goForward(250, 250);
       delay(10);
       break;
     }
@@ -184,9 +199,5 @@ void goRight(int leftSpeed, int rightSpeed) {
   digitalWrite(6, LOW);
   analogWrite(9, rightSpeed);
   digitalWrite(10, LOW);
-}
-
-boolean isCloseToSensor(int sensorPin) {
-  return analogRead(sensorPin) < 200;
 }
 
