@@ -31,7 +31,6 @@
 boolean doRun = false;
 
 void setup() {
-        Serial.begin(9600);
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
@@ -76,16 +75,9 @@ void loop() {
       digitalWrite(PIN_LED_C, HIGH);
     } else digitalWrite(PIN_LED_C, LOW);
 
-    Serial.print("motorState=");
-    Serial.println(motorState);
-
     switch(motorState) {
     case 0:
-      if (!digitalRead(PIN_SHARP_CENTER)) {
-        goForward(200, 200);
-      } else {
-        goRight(150, 150);
-      }
+      goRight(200, 200);
       delay(10);
       break;
     case 1:
