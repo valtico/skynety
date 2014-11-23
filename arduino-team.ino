@@ -70,6 +70,7 @@ void loop() {
       startMovement(MODE_MOVE_GO_FORWARD);
     } else {
       startMovement(MODE_MOVE_TURN_RIGHT);
+      delay(200);
     }
   }
 }
