@@ -30,6 +30,8 @@
 
 boolean doRun = false;
 
+boolean didWaitFiveSeconds = false;
+
 void setup() {
   /*
   Serial.begin(9600);
@@ -63,6 +65,11 @@ void loop() {
   if (!digitalRead(PIN_BTN_2)) doRun = false;
 
   if (doRun) {
+    if (!didWaitFiveSeconds) {
+      delay(5000);
+      didWaitFiveSeconds = true;
+    }
+
     int motorState = 0;
     
     if (!digitalRead(PIN_SHARP_LEFT)) {
@@ -154,6 +161,8 @@ void loop() {
       break;
     }
   } else {
+    didWaitFiveSeconds = false;
+
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
