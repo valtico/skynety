@@ -16,5 +16,22 @@ void setup() {
 }
 
 void loop() {
+  int valProxLeft = analogRead(PIN_PROXIMITY_LEFT);
+  int valProxBot = analogRead(PIN_PROXIMITY_BOTTOM);
+  int valProxRight = analogRead(PIN_PROXIMITY_RIGHT);
+
+  Serial.print(" left=");
+  Serial.print(valProxLeft);
+  Serial.println();
+
+  Serial.print(" bot=");
+  Serial.print(valProxBot);
+  Serial.println();
+
+  Serial.print(" right=");
+  Serial.print(valProxRight);
+  Serial.println();
+
+  delay(1000);
 }
 
