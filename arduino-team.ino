@@ -75,11 +75,11 @@ void loop() {
   }
 }
 
-void startMovement(byte mode) {
+void startMovement(short mode) {
   startMovement(mode, 127);
 }
 
-void startMovement(byte mode, short newPwm) {
+void startMovement(short mode, short newPwm) {
   switch (mode) {
     case MODE_MOVE_GO_FORWARD:
       analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
