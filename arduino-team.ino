@@ -46,6 +46,11 @@ void setup() {
   pinMode(PIN_SHARP_LEFT, INPUT);
   pinMode(PIN_SHARP_CENTER, INPUT);
   pinMode(PIN_SHARP_RIGHT, INPUT);
+
+  pinMode(PIN_MOTOR_PWM_LEFT, OUTPUT);
+  pinMode(PIN_MOTOR_DIR_LEFT, OUTPUT);
+  pinMode(PIN_MOTOR_PWM_RIGHT, OUTPUT);
+  pinMode(PIN_MOTOR_DIR_RIGHT, OUTPUT);
 }
 
 void loop() {
@@ -57,13 +62,8 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
 
-    //if (!digitalRead(PIN_SHARP_CENTER)) {
-      goForward(150, 150);
-      delay(500);
-    //} else {
-    //  goLeft(150, 150);
-    //  delay(500);
-    //}
+    goForward(150, 150);
+    delay(500);
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
