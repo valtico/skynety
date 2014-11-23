@@ -14,6 +14,20 @@
 #define PIN_SHARP_2 A3
 #define PIN_SHARP_3 A5
 
+#define PIN_MOTOR_PWM_LEFT 5
+#define PIN_MOTOR_DIR_LEFT 6
+#define PIN_MOTOR_PWM_RIGHT 10
+#define PIN_MOTOR_DIR_RIGHT 9
+
+#define MOTOR_DIR_LEFT_FORWARD LOW
+#define MOTOR_DIR_RIGHT_FORWARD LOW
+
+#define MODE_MOVE_NONE 1
+#define MODE_MOVE_GO_FORWARD 2
+#define MODE_MOVE_GO_BACKWARD 3
+#define MODE_MOVE_TURN_LEFT 4
+#define MODE_MOVE_TURN_RIGHT 5
+
 boolean doRun = false;
 
 void setup() {
@@ -52,7 +66,53 @@ void loop() {
   }
 }
 
-void mirrorProxLed(int sensorPin, int ledPin) {
+void startMovement(byte mode, short newPwm) {
+  switch (mode) {
+    case MODE_MOVE_GO_FORWARD:
+      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+
+      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+
+      break;
+    case MODE_MOVE_GO_BACKWARD:
+      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+
+      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+
+      break;
+    case MODE_MOVE_TURN_LEFT:
+      analogWrite(PIN_MOTOR_PWM_LEFT, 0);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+
+      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+
+      break;
+    case MODE_MOVE_TURN_RIGHT:
+      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+
+      analogWrite(PIN_MOTOR_PWM_RIGHT, 0);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+
+      break;
+    case MODE_MOVE_NONE:
+    default:
+      analogWrite(PIN_MOTOR_PWM_LEFT, 0);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+
+      analogWrite(PIN_MOTOR_PWM_RIGHT, 0);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+
+      break;
+  }
+}
+
+void mirrorProxLed(short sensorPin, short ledPin) {
   digitalWrite(ledPin, analogRead(sensorPin) < 200 ? HIGH : LOW);
 }
 
