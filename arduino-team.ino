@@ -27,20 +27,11 @@ void setup() {
 }
 
 void loop() {
-  blinkPin(PIN_LED);
-  blinkPin(PIN_LED_A);
-  blinkPin(PIN_LED_B);
-  blinkPin(PIN_LED_C);
+  mirrorBtnLed(PIN_BTN_1, PIN_LED_A);
+  mirrorBtnLed(PIN_BTN_2, PIN_LED_B);
 }
 
-void blinkPin(int pin) {
-  blinkPin(pin, 500);
-}
-
-void blinkPin(int pin, int delayMillis) {
-  digitalWrite(pin, HIGH);
-  delay(delayMillis / 2);
-  digitalWrite(pin, LOW);
-  delay(delayMillis / 2);
+void mirrorBtnLed(int buttonPin, int ledPin) {
+  digitalWrite(ledPin, digitalRead(buttonPin) ? LOW : HIGH);
 }
 
