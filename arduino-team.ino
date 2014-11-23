@@ -60,18 +60,18 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
 
-    startMovement(MODE_MOVE_NONE);
-  } else {
-    digitalWrite(PIN_LED_A, LOW);
-    digitalWrite(PIN_LED_B, LOW);
-    digitalWrite(PIN_LED_C, LOW);
-
     if (!digitalRead(PIN_SHARP_CENTER)) {
       startMovement(MODE_MOVE_GO_FORWARD);
     } else {
       startMovement(MODE_MOVE_TURN_RIGHT);
       delay(200);
     }
+  } else {
+    digitalWrite(PIN_LED_A, LOW);
+    digitalWrite(PIN_LED_B, LOW);
+    digitalWrite(PIN_LED_C, LOW);
+
+    startMovement(MODE_MOVE_NONE);
   }
 }
 
