@@ -75,6 +75,18 @@ void loop() {
       digitalWrite(PIN_LED_C, HIGH);
     } else digitalWrite(PIN_LED_C, LOW);
 
+    if (motorState == 0) {
+      if (!digitalRead(PIN_SHARP_LEFT)) {
+        motorState += 8;
+      }
+      if (!digitalRead(PIN_SHARP_CENTER)) {
+        motorState += 16;
+      }
+      if (!digitalRead(PIN_SHARP_RIGHT)) {
+        motorState += 32;
+      }
+    }
+
     switch(motorState) {
     case 0:
       goRight(200, 200);
@@ -110,6 +122,32 @@ void loop() {
       break;
     case 7:
       goForward(0, 0);
+      delay(10);
+      break;
+    case 8: // sharp left
+      goLeft(200, 200);
+      delay(10);
+      break;
+    case 16: // sharp center
+      goForward(255, 255);
+      delay(10);
+      break;
+    case 24: // sharp left + center
+      goForward(200, 255);
+      delay(10);
+      break;
+    case 32: // sharp right
+      goRight(200, 200);
+      delay(10);
+      break;
+    case 48: // sharp center + right
+      goForward(255, 200);
+      delay(10);
+      break;
+    case 40: // sharp left + right
+    case 56: // sharp left + center + right
+      goForward(255, 255);
+      delay(10);
       break;
     }
   } else {
