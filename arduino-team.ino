@@ -88,8 +88,8 @@ void loop() {
     }
 
     switch(motorState) {
-    case 0:
-      goRight(200, 200);
+    case 0: // nothing nowhere
+      goRight(150, 150);
       delay(10);
       break;
     case 1:
