@@ -72,11 +72,11 @@ void loop() {
   }
 }
 
-void startMovement(short mode) {
+void startMovement(int mode) {
   startMovement(mode, 127);
 }
 
-void startMovement(short mode, short newPwm) {
+void startMovement(int mode, int newPwm) {
   switch (mode) {
     case MODE_MOVE_GO_FORWARD:
       analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
@@ -122,7 +122,7 @@ void startMovement(short mode, short newPwm) {
   }
 }
 
-void mirrorProxLed(short sensorPin, short ledPin) {
+void mirrorProxLed(int sensorPin, int ledPin) {
   digitalWrite(ledPin, analogRead(sensorPin) < 200 ? HIGH : LOW);
 }
 
