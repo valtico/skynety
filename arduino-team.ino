@@ -64,32 +64,23 @@ void loop() {
 
   if (doRun) {
     int motorState = 0;
-
-    /*
-    Serial.print(" PIN_PROXIMITY_LEFT=");
-    Serial.print(analogRead(PIN_PROXIMITY_LEFT));
-    Serial.print(" PIN_PROXIMITY_RIGHT=");
-    Serial.print(analogRead(PIN_PROXIMITY_RIGHT));
-    Serial.print(" PIN_PROXIMITY_BACK=");
-    Serial.print(analogRead(PIN_PROXIMITY_BACK));
-    Serial.println();
-    */
-
-    if (analogRead(PIN_PROXIMITY_LEFT) < 300) {
+    
+    if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
       motorState += 1;
       digitalWrite(PIN_LED_A, HIGH);
     } else digitalWrite(PIN_LED_A, LOW);
 
-    if (analogRead(PIN_PROXIMITY_RIGHT) < 100) {
+    if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
       motorState += 2;
       digitalWrite(PIN_LED_B, HIGH);
     } else digitalWrite(PIN_LED_B, LOW);
 
-    if (analogRead(PIN_PROXIMITY_BACK) < 200) {
+    if (analogRead(PIN_PROXIMITY_BACK) < 150) {
       motorState += 4;
       digitalWrite(PIN_LED_C, HIGH);
     } else digitalWrite(PIN_LED_C, LOW);
 
+    
     if (motorState == 0) {
       if (!digitalRead(PIN_SHARP_LEFT)) {
         motorState += 8;
