@@ -59,11 +59,19 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_LEFT, PIN_LED_A);
     mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
+
+    startMovement(MODE_MOVE_NONE);
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
+
+    startMovement(MODE_MOVE_GO_FORWARD);
   }
+}
+
+void startMovement(byte mode) {
+  startMovement(mode, 127);
 }
 
 void startMovement(byte mode, short newPwm) {
