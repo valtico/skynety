@@ -62,10 +62,10 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
 
-    if (!digitalRead(PIN_SHARP_CENTER)) {
+    if (digitalRead(A3 /* PIN_SHARP_CENTER */)) {
       goForward(150, 150);
     } else {
-      goLeft(150, 150);
+      goRight(150, 150);
     }
     delay(500);
   } else {
