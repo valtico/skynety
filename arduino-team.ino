@@ -65,32 +65,29 @@ void loop() {
   if (doRun) {
     int motorState = 0;
     
-    if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
-      motorState += 1;
-      digitalWrite(PIN_LED_A, HIGH);
-    } else digitalWrite(PIN_LED_A, LOW);
-
-    if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
-      motorState += 2;
-      digitalWrite(PIN_LED_B, HIGH);
-    } else digitalWrite(PIN_LED_B, LOW);
-
-    if (analogRead(PIN_PROXIMITY_BACK) < 150) {
-      motorState += 4;
-      digitalWrite(PIN_LED_C, HIGH);
-    } else digitalWrite(PIN_LED_C, LOW);
-
+    if (!digitalRead(PIN_SHARP_LEFT)) {
+      motorState += 8;
+    }
+    if (!digitalRead(PIN_SHARP_CENTER)) {
+      motorState += 16;
+    }
+    if (!digitalRead(PIN_SHARP_RIGHT)) {
+      motorState += 32;
+    }
     
     if (motorState == 0) {
-      if (!digitalRead(PIN_SHARP_LEFT)) {
-        motorState += 8;
-      }
-      if (!digitalRead(PIN_SHARP_CENTER)) {
-        motorState += 16;
-      }
-      if (!digitalRead(PIN_SHARP_RIGHT)) {
-        motorState += 32;
-      }
+      if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
+        motorState += 1;
+        digitalWrite(PIN_LED_A, HIGH);
+      } else digitalWrite(PIN_LED_A, LOW);
+      if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
+        motorState += 2;
+        digitalWrite(PIN_LED_B, HIGH);
+      } else digitalWrite(PIN_LED_B, LOW);
+      if (analogRead(PIN_PROXIMITY_BACK) < 150) {
+        motorState += 4;
+        digitalWrite(PIN_LED_C, HIGH);
+      } else digitalWrite(PIN_LED_C, LOW);
     }
 
     switch(motorState) {
