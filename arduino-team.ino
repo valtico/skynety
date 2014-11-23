@@ -116,6 +116,7 @@ void loop() {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
+    goForward(0, 0);
   }
 }
 
