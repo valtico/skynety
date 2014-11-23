@@ -78,38 +78,38 @@ void loop() {
     switch(motorState) {
     case 0:
       if (digitalRead(PIN_SHARP_CENTER)) {
-        goForward(150, 150);
+        goForward(200, 200);
       } else {
         goRight(150, 150);
-        delay(200);
       }
+      delay(10);
       break;
     case 1:
-      goRight(100, 100);
+      goRight(200, 200);
       delay(300);
       break;
     case 2:
-      goLeft(100, 100);
+      goLeft(200, 200);
       delay(300);
       break;
     case 3:
-      goBackwards(150, 150);
+      goBackwards(200, 200);
       delay(200);
       break;
     case 4:
-      goForward(150, 150);
+      goForward(200, 200);
       delay(300);
       break;
     case 5:
-      goForward(150, 150); // 255 maybe?
+      goForward(255, 255);
       delay(200);
-      goRight(150, 150);
+      goRight(200, 200);
       delay(100);
       break;
     case 6:
-      goForward(150, 150); // 255 maybe?
+      goForward(255, 255);
       delay(200);
-      goLeft(150, 150);
+      goLeft(200, 200);
       delay(100);
       break;
     case 7:
