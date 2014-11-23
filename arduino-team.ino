@@ -5,6 +5,9 @@
 #define PIN_PROXIMITY_RIGHT A4
 
 void setup() {
+  Serial.begin(9600);
+  while (!Serial) ;
+
   pinMode(PIN_LED, OUTPUT);
 
   pinMode(PIN_PROXIMITY_LEFT, INPUT);
