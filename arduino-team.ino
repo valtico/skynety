@@ -6,11 +6,6 @@
 #define PIN_BTN_1 11
 #define PIN_BTN_2 A1
 
-#define PIN_DIP_SWITCH_1 0
-#define PIN_DIP_SWITCH_2 1
-#define PIN_DIP_SWITCH_3 2
-#define PIN_DIP_SWITCH_4 3
-
 #define PIN_PROXIMITY_LEFT A8
 #define PIN_PROXIMITY_BOTTOM A6
 #define PIN_PROXIMITY_RIGHT A4
