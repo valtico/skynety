@@ -40,7 +40,7 @@ void setup() {
   pinMode(PIN_BTN_2, INPUT_PULLUP);
 
   pinMode(PIN_PROXIMITY_LEFT, INPUT);
-  pinMode(PIN_PROXIMITY_BOTTOM, INPUT);
+  pinMode(PIN_PROXIMITY_BACK, INPUT);
   pinMode(PIN_PROXIMITY_RIGHT, INPUT);
 
   pinMode(PIN_SHARP_LEFT, INPUT);
@@ -61,17 +61,17 @@ void loop() {
     int motorState = 0;
 
     if (isCloseToSensor(PIN_PROXIMITY_LEFT)) {
-      motState += 1;
+      motorState += 1;
       digitalWrite(PIN_LED_A, HIGH);
     } else digitalWrite(PIN_LED_A, LOW);
 
     if (isCloseToSensor(PIN_PROXIMITY_RIGHT)) {
-      motState += 2;
+      motorState += 2;
       digitalWrite(PIN_LED_B, HIGH);
     } else digitalWrite(PIN_LED_B, LOW);
 
     if (isCloseToSensor(PIN_PROXIMITY_BACK)) {
-      motState += 4;
+      motorState += 4;
       digitalWrite(PIN_LED_C, HIGH);
     } else digitalWrite(PIN_LED_C, LOW);
 
@@ -84,25 +84,40 @@ void loop() {
       delay(300);
       break;
     case 2:
+      goLeft(100, 100);
+      delay(300);
       break;
     case 3:
+      goBackwards(150, 150);
+      delay(200);
       break;
     case 4:
+      goForward(150, 150);
+      delay(300);
       break;
     case 5:
+      goForward(150, 150); // 255 maybe?
+      delay(200);
+      goRight(150, 150);
+      delay(100);
       break;
     case 6:
+      goForward(150, 150); // 255 maybe?
+      delay(200);
+      goLeft(150, 150);
+      delay(100);
       break;
     case 7:
+      goForward(0, 0);
       break;
     }
 
     if (digitalRead(PIN_SHARP_CENTER)) {
-      goForward(150, 150);
+      // goForward(150, 150);
     } else {
-      goRight(150, 150);
+      // goRight(150, 150);
     }
-    delay(500);
+    // delay(500);
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
