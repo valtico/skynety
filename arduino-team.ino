@@ -31,9 +31,6 @@
 boolean doRun = false;
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial) ;
-
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
@@ -90,15 +87,15 @@ void startMovement(short mode, short newPwm) {
 
       break;
     case MODE_MOVE_GO_BACKWARD:
-      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      analogWrite(PIN_MOTOR_PWM_LEFT, 255 - newPwm);
       digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
 
-      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      analogWrite(PIN_MOTOR_PWM_RIGHT, 255 - newPwm);
       digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
 
       break;
     case MODE_MOVE_TURN_LEFT:
-      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      analogWrite(PIN_MOTOR_PWM_LEFT, 255 - newPwm);
       digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
 
       analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
@@ -109,7 +106,7 @@ void startMovement(short mode, short newPwm) {
       analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
       digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
 
-      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      analogWrite(PIN_MOTOR_PWM_RIGHT, 255 - newPwm);
       digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
 
       break;
