@@ -77,7 +77,12 @@ void loop() {
 
     switch(motorState) {
     case 0:
-      goLeft(100, 100);
+      if (digitalRead(PIN_SHARP_CENTER)) {
+        goForward(150, 150);
+      } else {
+        goRight(150, 150);
+        delay(200);
+      }
       break;
     case 1:
       goRight(100, 100);
@@ -111,13 +116,6 @@ void loop() {
       goForward(0, 0);
       break;
     }
-
-    if (digitalRead(PIN_SHARP_CENTER)) {
-      // goForward(150, 150);
-    } else {
-      // goRight(150, 150);
-    }
-    // delay(500);
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
