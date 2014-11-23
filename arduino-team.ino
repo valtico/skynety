@@ -10,9 +10,9 @@
 #define PIN_PROXIMITY_BOTTOM A6
 #define PIN_PROXIMITY_RIGHT A4
 
-#define PIN_SHARP_1 7
-#define PIN_SHARP_2 A3
-#define PIN_SHARP_3 A5
+#define PIN_SHARP_LEFT 7
+#define PIN_SHARP_CENTER A3
+#define PIN_SHARP_RIGHT A5
 
 #define PIN_MOTOR_PWM_LEFT 5
 #define PIN_MOTOR_DIR_LEFT 6
@@ -46,9 +46,9 @@ void setup() {
   pinMode(PIN_PROXIMITY_BOTTOM, INPUT);
   pinMode(PIN_PROXIMITY_RIGHT, INPUT);
 
-  pinMode(PIN_SHARP_1, INPUT);
-  pinMode(PIN_SHARP_2, INPUT);
-  pinMode(PIN_SHARP_3, INPUT);
+  pinMode(PIN_SHARP_LEFT, INPUT);
+  pinMode(PIN_SHARP_CENTER, INPUT);
+  pinMode(PIN_SHARP_RIGHT, INPUT);
 }
 
 void loop() {
@@ -66,7 +66,11 @@ void loop() {
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
 
-    startMovement(MODE_MOVE_GO_FORWARD);
+    if (!digitalRead(PIN_SHARP_CENTER)) {
+      startMovement(MODE_MOVE_GO_FORWARD);
+    } else {
+      startMovement(MODE_MOVE_TURN_RIGHT);
+    }
   }
 }
 
@@ -86,15 +90,15 @@ void startMovement(byte mode, short newPwm) {
       break;
     case MODE_MOVE_GO_BACKWARD:
       analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
 
       analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
 
       break;
     case MODE_MOVE_TURN_LEFT:
-      analogWrite(PIN_MOTOR_PWM_LEFT, 0);
-      digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
+      analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_LEFT, !MOTOR_DIR_LEFT_FORWARD);
 
       analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
       digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
@@ -104,8 +108,8 @@ void startMovement(byte mode, short newPwm) {
       analogWrite(PIN_MOTOR_PWM_LEFT, newPwm);
       digitalWrite(PIN_MOTOR_DIR_LEFT, MOTOR_DIR_LEFT_FORWARD);
 
-      analogWrite(PIN_MOTOR_PWM_RIGHT, 0);
-      digitalWrite(PIN_MOTOR_DIR_RIGHT, MOTOR_DIR_RIGHT_FORWARD);
+      analogWrite(PIN_MOTOR_PWM_RIGHT, newPwm);
+      digitalWrite(PIN_MOTOR_DIR_RIGHT, !MOTOR_DIR_RIGHT_FORWARD);
 
       break;
     case MODE_MOVE_NONE:
