@@ -57,12 +57,13 @@ void loop() {
     mirrorProxLed(PIN_PROXIMITY_BOTTOM, PIN_LED_B);
     mirrorProxLed(PIN_PROXIMITY_RIGHT, PIN_LED_C);
 
-    if (!digitalRead(PIN_SHARP_CENTER)) {
+    //if (!digitalRead(PIN_SHARP_CENTER)) {
       goForward(150, 150);
-    } else {
-      goLeft(150, 150);
       delay(500);
-    }
+    //} else {
+    //  goLeft(150, 150);
+    //  delay(500);
+    //}
   } else {
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
