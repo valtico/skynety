@@ -18,16 +18,20 @@
 #define PIN_MOTOR_RIGHT_A 10
 #define PIN_MOTOR_RIGHT_B 9
 
+#ifndef DO_USE_SERIAL
+#define DO_USE_SERIAL 0
+#endif
+
 boolean doRun = false;
 
 boolean didWaitFiveSeconds = false;
 
 void setup() {
-#if defined(HAS_SERIAL)
+#if DO_USE_SERIAL
   Serial.begin(9600);
   while (!Serial) ;
   Serial.println("hello world.");
-#endif
+#endif /* DO_USE_SERIAL */
 
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
