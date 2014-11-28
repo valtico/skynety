@@ -22,6 +22,10 @@
 #define DO_USE_SERIAL 0
 #endif
 
+#ifndef DO_USE_LEDS
+#define DO_USE_LEDS 0
+#endif
+
 boolean doRun = false;
 
 boolean didWaitFiveSeconds = false;
@@ -34,10 +38,12 @@ void setup() {
   Serial.println("hello world.");
 #endif /* DO_USE_SERIAL */
 
+#if DO_USE_LEDS
   // set up LEDs
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
   pinMode(PIN_LED_C, OUTPUT);
+#endif /* DO_USE_LEDS */
 
   // set up buttons
   pinMode(PIN_BTN_1, INPUT_PULLUP);
@@ -67,9 +73,11 @@ void loop() {
   if (!doRun) {
     // abort; either the kill switch's been pressed or we just haven't initialized yet
 
+#if DO_USE_LEDS
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
+#endif /* DO_USE_LEDS */
 
     goForward(0, 0);
 
@@ -97,16 +105,36 @@ void loop() {
   if (motorState == 0) {
     if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
       motorState += 1;
+#if DO_USE_LEDS
       digitalWrite(PIN_LED_A, HIGH);
-    } else digitalWrite(PIN_LED_A, LOW);
+#endif /* DO_USE_LEDS */
+    } else {
+#if DO_USE_LEDS
+      digitalWrite(PIN_LED_A, LOW);
+#endif /* DO_USE_LEDS */
+    }
+
     if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
       motorState += 2;
+#if DO_USE_LEDS
       digitalWrite(PIN_LED_B, HIGH);
-    } else digitalWrite(PIN_LED_B, LOW);
+#endif /* DO_USE_LEDS */
+    } else {
+#if DO_USE_LEDS
+      digitalWrite(PIN_LED_B, LOW);
+#endif /* DO_USE_LEDS */
+    }
+
     if (analogRead(PIN_PROXIMITY_BACK) < 150) {
       motorState += 4;
+#if DO_USE_LEDS
       digitalWrite(PIN_LED_C, HIGH);
-    } else digitalWrite(PIN_LED_C, LOW);
+#endif /* DO_USE_LEDS */
+    } else {
+#if DO_USE_LEDS
+      digitalWrite(PIN_LED_C, LOW);
+#endif /* DO_USE_LEDS */
+    }
   }
 
   switch(motorState) {
