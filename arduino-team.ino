@@ -66,109 +66,111 @@ void loop() {
 
   if (!doRun) {
     // abort; either the kill switch's been pressed or we just haven't initialized yet
-    didWaitFiveSeconds = false;
 
     digitalWrite(PIN_LED_A, LOW);
     digitalWrite(PIN_LED_B, LOW);
     digitalWrite(PIN_LED_C, LOW);
 
     goForward(0, 0);
-  } else {
-    if (!didWaitFiveSeconds) {
-      delay(5000);
-      didWaitFiveSeconds = true;
-    }
 
-    int motorState = 0;
-    
-    if (!digitalRead(PIN_SHARP_LEFT)) {
-      motorState += 8;
-    }
-    if (!digitalRead(PIN_SHARP_CENTER)) {
-      motorState += 16;
-    }
-    if (!digitalRead(PIN_SHARP_RIGHT)) {
-      motorState += 32;
-    }
-    
-    if (motorState == 0) {
-      if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
-        motorState += 1;
-        digitalWrite(PIN_LED_A, HIGH);
-      } else digitalWrite(PIN_LED_A, LOW);
-      if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
-        motorState += 2;
-        digitalWrite(PIN_LED_B, HIGH);
-      } else digitalWrite(PIN_LED_B, LOW);
-      if (analogRead(PIN_PROXIMITY_BACK) < 150) {
-        motorState += 4;
-        digitalWrite(PIN_LED_C, HIGH);
-      } else digitalWrite(PIN_LED_C, LOW);
-    }
+    didWaitFiveSeconds = false;
+    return;
+  }
 
-    switch(motorState) {
-    case 0: // nothing nowhere
-      goRight(150, 150);
-      delay(10);
-      break;
-    case 1:
-      goRight(200, 200);
-      delay(300);
-      break;
-    case 2:
-      goLeft(200, 200);
-      delay(300);
-      break;
-    case 3:
-      goBackwards(200, 200);
-      delay(200);
-      break;
-    case 4:
-      goForward(200, 200);
-      delay(300);
-      break;
-    case 5:
-      goForward(250, 250);
-      delay(200);
-      goRight(200, 200);
-      delay(100);
-      break;
-    case 6:
-      goForward(250, 250);
-      delay(200);
-      goLeft(200, 200);
-      delay(100);
-      break;
-    case 7:
-      goForward(0, 0);
-      delay(10);
-      break;
-    case 8: // sharp left
-      goLeft(200, 200);
-      delay(10);
-      break;
-    case 16: // sharp center
-      goForward(250, 250);
-      delay(10);
-      break;
-    case 24: // sharp left + center
-      goForward(200, 250);
-      delay(10);
-      break;
-    case 32: // sharp right
-      goRight(200, 200);
-      delay(10);
-      break;
-    case 48: // sharp center + right
-      goForward(250, 200);
-      delay(10);
-      break;
-    case 40: // sharp left + right
-    case 56: // sharp left + center + right
-      goForward(250, 250);
-      delay(10);
-      break;
-    }
+  if (!didWaitFiveSeconds) {
+    delay(5000);
+    didWaitFiveSeconds = true;
+  }
+
+  int motorState = 0;
+
+  if (!digitalRead(PIN_SHARP_LEFT)) {
+    motorState += 8;
+  }
+  if (!digitalRead(PIN_SHARP_CENTER)) {
+    motorState += 16;
+  }
+  if (!digitalRead(PIN_SHARP_RIGHT)) {
+    motorState += 32;
+  }
+    
+  if (motorState == 0) {
+    if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
+      motorState += 1;
+      digitalWrite(PIN_LED_A, HIGH);
+    } else digitalWrite(PIN_LED_A, LOW);
+    if (analogRead(PIN_PROXIMITY_RIGHT) < 150) {
+      motorState += 2;
+      digitalWrite(PIN_LED_B, HIGH);
+    } else digitalWrite(PIN_LED_B, LOW);
+    if (analogRead(PIN_PROXIMITY_BACK) < 150) {
+      motorState += 4;
+      digitalWrite(PIN_LED_C, HIGH);
+    } else digitalWrite(PIN_LED_C, LOW);
+  }
+
+  switch(motorState) {
+  case 0: // nothing nowhere
+    goRight(150, 150);
+    delay(10);
+    break;
+  case 1:
+    goRight(200, 200);
+    delay(300);
+    break;
+  case 2:
+    goLeft(200, 200);
+    delay(300);
+    break;
+  case 3:
+    goBackwards(200, 200);
+    delay(200);
+    break;
+  case 4:
+    goForward(200, 200);
+    delay(300);
+    break;
+  case 5:
+    goForward(250, 250);
+    delay(200);
+    goRight(200, 200);
+    delay(100);
+    break;
+  case 6:
+    goForward(250, 250);
+    delay(200);
+    goLeft(200, 200);
+    delay(100);
+    break;
+  case 7:
+    goForward(0, 0);
+    delay(10);
+    break;
+  case 8: // sharp left
+    goLeft(200, 200);
+    delay(10);
+    break;
+  case 16: // sharp center
+    goForward(250, 250);
+    delay(10);
+    break;
+  case 24: // sharp left + center
+    goForward(200, 250);
+    delay(10);
+    break;
+  case 32: // sharp right
+    goRight(200, 200);
+    delay(10);
+    break;
+  case 48: // sharp center + right
+    goForward(250, 200);
+    delay(10);
+    break;
+  case 40: // sharp left + right
+  case 56: // sharp left + center + right
+    goForward(250, 250);
+    delay(10);
+    break;
   }
 }
 
