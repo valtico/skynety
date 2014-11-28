@@ -55,8 +55,8 @@ void setup() {
 }
 
 void loop() {
-  if (!digitalRead(PIN_BTN_1)) doRun = true;
-  if (!digitalRead(PIN_BTN_2)) doRun = false;
+  if (!doRun) if (!digitalRead(PIN_BTN_1)) doRun = true; // doRun was false and btn 1 was pushed
+  if (doRun) if (!digitalRead(PIN_BTN_2)) doRun = false; // doRun was true and btn 2 was pushed
 
   if (doRun) {
     if (!didWaitFiveSeconds) {
