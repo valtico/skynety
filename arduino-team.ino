@@ -28,26 +28,32 @@ boolean didWaitFiveSeconds = false;
 
 void setup() {
 #if DO_USE_SERIAL
+  // set up Serial
   Serial.begin(9600);
   while (!Serial) ;
   Serial.println("hello world.");
 #endif /* DO_USE_SERIAL */
 
+  // set up LEDs
   pinMode(PIN_LED_A, OUTPUT);
   pinMode(PIN_LED_B, OUTPUT);
   pinMode(PIN_LED_C, OUTPUT);
 
+  // set up buttons
   pinMode(PIN_BTN_1, INPUT_PULLUP);
   pinMode(PIN_BTN_2, INPUT_PULLUP);
 
+  // set up floor sensors
   pinMode(PIN_PROXIMITY_LEFT, INPUT);
   pinMode(PIN_PROXIMITY_BACK, INPUT);
   pinMode(PIN_PROXIMITY_RIGHT, INPUT);
 
+  // set up enemy sensors
   pinMode(PIN_SHARP_LEFT, INPUT);
   pinMode(PIN_SHARP_CENTER, INPUT);
   pinMode(PIN_SHARP_RIGHT, INPUT);
 
+  // set up motors
   pinMode(PIN_MOTOR_LEFT_A, OUTPUT);
   pinMode(PIN_MOTOR_LEFT_B, OUTPUT);
   pinMode(PIN_MOTOR_RIGHT_A, OUTPUT);
@@ -58,7 +64,16 @@ void loop() {
   if (!doRun) if (!digitalRead(PIN_BTN_1)) doRun = true; // doRun was false and btn 1 was pushed
   if (doRun) if (!digitalRead(PIN_BTN_2)) doRun = false; // doRun was true and btn 2 was pushed
 
-  if (doRun) {
+  if (!doRun) {
+    // abort; either the kill switch's been pressed or we just haven't initialized yet
+    didWaitFiveSeconds = false;
+
+    digitalWrite(PIN_LED_A, LOW);
+    digitalWrite(PIN_LED_B, LOW);
+    digitalWrite(PIN_LED_C, LOW);
+
+    goForward(0, 0);
+  } else {
     if (!didWaitFiveSeconds) {
       delay(5000);
       didWaitFiveSeconds = true;
@@ -154,14 +169,6 @@ void loop() {
       delay(10);
       break;
     }
-  } else {
-    didWaitFiveSeconds = false;
-
-    digitalWrite(PIN_LED_A, LOW);
-    digitalWrite(PIN_LED_B, LOW);
-    digitalWrite(PIN_LED_C, LOW);
-
-    goForward(0, 0);
   }
 }
 
