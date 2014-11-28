@@ -102,14 +102,15 @@ void loop() {
   if (!digitalRead(PIN_SHARP_RIGHT)) {
     motorState += 32;
   }
-    
+
   if (motorState == 0) {
     if (analogRead(PIN_PROXIMITY_LEFT) < 150) {
       motorState += 1;
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_A, HIGH);
 #endif /* DO_USE_LEDS */
-    } else {
+    }
+    else {
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_A, LOW);
 #endif /* DO_USE_LEDS */
@@ -120,7 +121,8 @@ void loop() {
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_B, HIGH);
 #endif /* DO_USE_LEDS */
-    } else {
+    }
+    else {
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_B, LOW);
 #endif /* DO_USE_LEDS */
@@ -131,7 +133,8 @@ void loop() {
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_C, HIGH);
 #endif /* DO_USE_LEDS */
-    } else {
+    }
+    else {
 #if DO_USE_LEDS
       digitalWrite(PIN_LED_C, LOW);
 #endif /* DO_USE_LEDS */
@@ -230,4 +233,3 @@ void goRight(int leftSpeed, int rightSpeed) {
   analogWrite(PIN_MOTOR_RIGHT_B, rightSpeed);
   digitalWrite(PIN_MOTOR_RIGHT_A, LOW);
 }
-
