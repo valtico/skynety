@@ -1,6 +1,24 @@
+// extra constant config
+
+#define DO_USE_LEDS 1
+
+// feature constant config
+
+#ifndef DO_USE_SERIAL
+#define DO_USE_SERIAL 0
+#endif /* ndef DO_USE_SERIAL */
+
+#ifndef DO_USE_LEDS
+#define DO_USE_LEDS 0
+#endif /* ndef DO_USE_LEDS */
+
+// pin constant config
+
+#if DO_USE_LEDS
 #define PIN_LED_A 15
 #define PIN_LED_B 16
 #define PIN_LED_C 17
+#endif /* DO_USE_LEDS */
 
 #define PIN_BTN_1 11
 #define PIN_BTN_2 A1
@@ -18,17 +36,9 @@
 #define PIN_MOTOR_RIGHT_A 10
 #define PIN_MOTOR_RIGHT_B 9
 
-#ifndef DO_USE_SERIAL
-#define DO_USE_SERIAL 0
-#endif
-
-#define DO_USE_LEDS 1
-#ifndef DO_USE_LEDS
-#define DO_USE_LEDS 0
-#endif
+// runtime config
 
 boolean doRun = false;
-
 boolean didWaitFiveSeconds = false;
 
 void setup() {
