@@ -22,6 +22,7 @@
 #define DO_USE_SERIAL 0
 #endif
 
+#define DO_USE_LEDS 1
 #ifndef DO_USE_LEDS
 #define DO_USE_LEDS 0
 #endif
