@@ -19,8 +19,8 @@
 // pin constant config
 
 #if DO_USE_LEDS
-#define PIN_LED_A 15
-#define PIN_LED_B 16
+#define PIN_LED_A 16
+#define PIN_LED_B 15
 #define PIN_LED_C 17
 #endif /* DO_USE_LEDS */
 
