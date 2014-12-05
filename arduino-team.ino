@@ -12,9 +12,9 @@
 #define DO_USE_LEDS 0
 #endif /* ndef DO_USE_LEDS */
 
-#define MOTOR_PWM_MAX 250
-#define MOTOR_PWM_MID 200
-#define MOTOR_PWM_MIN 150
+#define MOTOR_PWM_MAX 150
+#define MOTOR_PWM_MID 100
+#define MOTOR_PWM_MIN 50
 
 // pin constant config
 
