@@ -12,6 +12,10 @@
 #define DO_USE_LEDS 0
 #endif /* ndef DO_USE_LEDS */
 
+#define MOTOR_PWM_MAX 250
+#define MOTOR_PWM_MID 200
+#define MOTOR_PWM_MIN 150
+
 // pin constant config
 
 #if DO_USE_LEDS
@@ -153,35 +157,35 @@ void loop() {
 
   switch(motorState) {
   case 0: // nothing nowhere
-    goRight(150, 150);
+    goRight(MOTOR_PWM_MIN, MOTOR_PWM_MIN);
     delay(10);
     break;
   case 1:
-    goRight(200, 200);
+    goRight(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(300);
     break;
   case 2:
-    goLeft(200, 200);
+    goLeft(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(300);
     break;
   case 3:
-    goBackwards(200, 200);
+    goBackwards(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(200);
     break;
   case 4:
-    goForward(200, 200);
+    goForward(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(300);
     break;
   case 5:
-    goForward(250, 250);
+    goForward(MOTOR_PWM_MAX, MOTOR_PWM_MAX);
     delay(200);
-    goRight(200, 200);
+    goRight(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(100);
     break;
   case 6:
-    goForward(250, 250);
+    goForward(MOTOR_PWM_MAX, MOTOR_PWM_MAX);
     delay(200);
-    goLeft(200, 200);
+    goLeft(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(100);
     break;
   case 7:
@@ -189,28 +193,28 @@ void loop() {
     delay(10);
     break;
   case 8: // sharp left
-    goLeft(200, 200);
+    goLeft(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(10);
     break;
   case 16: // sharp center
-    goForward(250, 250);
+    goForward(MOTOR_PWM_MAX, MOTOR_PWM_MAX);
     delay(10);
     break;
   case 24: // sharp left + center
-    goForward(200, 250);
+    goForward(MOTOR_PWM_MID, MOTOR_PWM_MAX);
     delay(10);
     break;
   case 32: // sharp right
-    goRight(200, 200);
+    goRight(MOTOR_PWM_MID, MOTOR_PWM_MID);
     delay(10);
     break;
   case 48: // sharp center + right
-    goForward(250, 200);
+    goForward(MOTOR_PWM_MAX, MOTOR_PWM_MID);
     delay(10);
     break;
   case 40: // sharp left + right
   case 56: // sharp left + center + right
-    goForward(250, 250);
+    goForward(MOTOR_PWM_MAX, MOTOR_PWM_MAX);
     delay(10);
     break;
   }
